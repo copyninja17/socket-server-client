@@ -1,0 +1,5 @@
+echo
+ls
+mkdir mohit
+cd mohit
+mkdir
