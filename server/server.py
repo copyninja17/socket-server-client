@@ -3,7 +3,7 @@ import json
 import socket
 import threading
 import subprocess
-from server_config import SERVER_IP, SERVER_PORT, CMD_TIMEOUT, CONN_TIMEOUT
+from .server_config import SERVER_IP, SERVER_PORT, CMD_TIMEOUT, CONN_TIMEOUT
 
 
 class Server:
@@ -15,9 +15,9 @@ class Server:
     
 
     def request_parser(self, data):
-        '''
+        """
         Parses json rpc request return response in json rpc format
-        '''
+        """
         try:
             result = {"response": []}
             data = json.loads(data)["commands"]
@@ -42,9 +42,9 @@ class Server:
 
 
     def execute_cmd(self, cmd):
-        '''
+        """
         Executes command and returns response in dict format
-        '''
+        """
         result = subprocess.run(cmd, shell=True, text=True, capture_output=True, timeout=self.cmd_timeout)
 
         status = True if result.returncode == 0 else False
@@ -57,11 +57,11 @@ class Server:
 
 
     def handle_client(self, conn, addr):
-        '''
+        """
         Spawns a new client on a new thread
         Recieves data from connection
         Sends back response
-        '''
+        """
         try:
             print(f"Connected by {addr}")
             conn.settimeout(self.conn_timeout) 
@@ -83,9 +83,9 @@ class Server:
 
 
     def start(self):
-        '''
+        """
         Starts the socket server
-        '''
+        """
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as server_socket:
             server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
             server_socket.bind((self.host, self.port))

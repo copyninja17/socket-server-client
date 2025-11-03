@@ -1,10 +1,11 @@
 import sys
 import uuid
 import json
-from client_config import SERVER_IP, SERVER_PORT
+from .client_config import SERVER_IP, SERVER_PORT
 import socket
 
-class Client():
+
+class Client:
     def __init__(self, host, port):
         self.host = host
         self.port = port
@@ -50,7 +51,7 @@ class Client():
             return False, data
         
 
-    def send_request(self, file_path=None):    
+    def send_request(self, file_path=None):
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as client_socket:
             client_socket.connect((self.host, self.port))
 
